@@ -10,7 +10,7 @@
 
     <title>The Extent of The Problem &#8212; Road to Rigor (LM Version)</title>
 
-
+    <link rel="stylesheet" href="./_static/css/style.css">
 
     <script data-cfasync="false">
         document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
@@ -25,96 +25,122 @@
 
     <article>
         <!-- Data widget here -->
-        <iframe id="cliprepoif" src="./clip-repo/index.html" width="100%" frameborder="0"></iframe>
+        <div class="container-with-sidebar">
+            <div class="links-list">
+                <div class="navigation-title">Navigation Links</div>
+                <div>
+                    <a href="#cliprepoif">
+                        <div class="link-text">clip-repo</div>
+                    </a>
+                </div>
+                <div>
+                    <a href="#r2r_lm_final_commitment">
+                        <div class="link-text">r2r_lm_final_commitment</div>
+                    </a>
+                </div>
+                <div>
+                    <a href="#r2r_python_ide">
+                        <div class="link-text">r2r_python_ide</div>
+                    </a>
+                </div>
+            </div>
+            <div class="container-content">
+                <!-- Clip Repo here -->
+                <iframe id="cliprepoif" src="./clip-repo/index.html" width="100%" frameborder="0"></iframe>
 
-        <script>
-            // Script to dynamically adjust the height of the iframe
-            document.addEventListener('DOMContentLoaded', function () {
-                var iframe = document.getElementById('cliprepoif');
-                // Function to update the height
-                function updateIframeHeight() {
-                    try {
-                        var iframeContent = iframe.contentWindow.document.body.scrollHeight;
-                        iframe.style.height = iframeContent + 'px';
-                    } catch (e) {
-                        console.error('Error adjusting iframe height:', e);
-                    }
-                }
-                // Event listener for the iframe load
-                iframe.addEventListener('load', function () {
-                    updateIframeHeight();
-                    // Set up a MutationObserver to listen for changes in the iframe content
-                    var observer = new MutationObserver(updateIframeHeight);
-                    observer.observe(iframe.contentWindow.document.body, {
-                        attributes: true,
-                        childList: true,
-                        subtree: true
+                <script>
+                    // Script to dynamically adjust the height of the iframe
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var iframe = document.getElementById('cliprepoif');
+                        // Function to update the height
+                        function updateIframeHeight() {
+                            try {
+                                var iframeContent = iframe.contentWindow.document.body.scrollHeight;
+                                iframe.style.height = iframeContent + 'px';
+                            } catch (e) {
+                                console.error('Error adjusting iframe height:', e);
+                            }
+                        }
+                        // Event listener for the iframe load
+                        iframe.addEventListener('load', function () {
+                            updateIframeHeight();
+                            // Set up a MutationObserver to listen for changes in the iframe content
+                            var observer = new MutationObserver(updateIframeHeight);
+                            observer.observe(iframe.contentWindow.document.body, {
+                                attributes: true,
+                                childList: true,
+                                subtree: true
+                            });
+                        });
                     });
-                });
-            });
-        </script>
+                </script>
 
 
-        <!-- Data widget here -->
-        <iframe id="r2r_lm_final_commitment" src="./r2r_lm_final_commitment/index.html" width="100%"
-            frameborder="0"></iframe>
+                <!-- Data widget here -->
+                <!-- Final commitment here -->
+                <iframe id="r2r_lm_final_commitment" src="./r2r_lm_final_commitment/index.html" width="100%"
+                    frameborder="0"></iframe>
 
-        <script>
-            // Script to dynamically adjust the height of the iframe
-            document.addEventListener('DOMContentLoaded', function () {
-                var iframe = document.getElementById('r2r_lm_final_commitment');
-                // Function to update the height
-                function updateIframeHeight() {
-                    try {
-                        var iframeContent = iframe.contentWindow.document.body.scrollHeight;
-                        iframe.style.height = iframeContent + 'px';
-                    } catch (e) {
-                        console.error('Error adjusting iframe height:', e);
-                    }
-                }
-                // Event listener for the iframe load
-                iframe.addEventListener('load', function () {
-                    updateIframeHeight();
-                    // Set up a MutationObserver to listen for changes in the iframe content
-                    var observer = new MutationObserver(updateIframeHeight);
-                    observer.observe(iframe.contentWindow.document.body, {
-                        attributes: true,
-                        childList: true,
-                        subtree: true
+                <script>
+                    // Script to dynamically adjust the height of the iframe
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var iframe = document.getElementById('r2r_lm_final_commitment');
+                        // Function to update the height
+                        function updateIframeHeight() {
+                            try {
+                                var iframeContent = iframe.contentWindow.document.body.scrollHeight;
+                                iframe.style.height = iframeContent + 'px';
+                            } catch (e) {
+                                console.error('Error adjusting iframe height:', e);
+                            }
+                        }
+                        // Event listener for the iframe load
+                        iframe.addEventListener('load', function () {
+                            updateIframeHeight();
+                            // Set up a MutationObserver to listen for changes in the iframe content
+                            var observer = new MutationObserver(updateIframeHeight);
+                            observer.observe(iframe.contentWindow.document.body, {
+                                attributes: true,
+                                childList: true,
+                                subtree: true
+                            });
+                        });
                     });
-                });
-            });
-        </script>
+                </script>
 
-        <!-- Data widget here -->
-        <iframe id="r2r_python_ide" src="./r2r_python_ide/index.html" width="100%" frameborder="0"></iframe>
+                <!-- Data widget here -->
+                <!-- Python IDE here -->
+                <iframe id="r2r_python_ide" src="./r2r_python_ide/index.html" width="100%" frameborder="0"></iframe>
 
-        <script>
-            // Script to dynamically adjust the height of the iframe
-            document.addEventListener('DOMContentLoaded', function () {
-                var iframe = document.getElementById('r2r_python_ide');
-                // Function to update the height
-                function updateIframeHeight() {
-                    try {
-                        var iframeContent = iframe.contentWindow.document.body.scrollHeight;
-                        iframe.style.height = iframeContent + 'px';
-                    } catch (e) {
-                        console.error('Error adjusting iframe height:', e);
-                    }
-                }
-                // Event listener for the iframe load
-                iframe.addEventListener('load', function () {
-                    updateIframeHeight();
-                    // Set up a MutationObserver to listen for changes in the iframe content
-                    var observer = new MutationObserver(updateIframeHeight);
-                    observer.observe(iframe.contentWindow.document.body, {
-                        attributes: true,
-                        childList: true,
-                        subtree: true
+                <script>
+                    // Script to dynamically adjust the height of the iframe
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var iframe = document.getElementById('r2r_python_ide');
+                        // Function to update the height
+                        function updateIframeHeight() {
+                            try {
+                                var iframeContent = iframe.contentWindow.document.body.scrollHeight;
+                                iframe.style.height = iframeContent + 'px';
+                            } catch (e) {
+                                console.error('Error adjusting iframe height:', e);
+                            }
+                        }
+                        // Event listener for the iframe load
+                        iframe.addEventListener('load', function () {
+                            updateIframeHeight();
+                            // Set up a MutationObserver to listen for changes in the iframe content
+                            var observer = new MutationObserver(updateIframeHeight);
+                            observer.observe(iframe.contentWindow.document.body, {
+                                attributes: true,
+                                childList: true,
+                                subtree: true
+                            });
+                        });
                     });
-                });
-            });
-        </script>
+                </script>
+            </div>
+        </div>
+
 
     </article>
 
