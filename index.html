@@ -10,48 +10,7 @@
 
     <title>The Extent of The Problem &#8212; Road to Rigor (LM Version)</title>
 
-    <style>
-
-        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
-
-body{
-    background-color: black;
-    font-family: "Inter";
-}
-.container-with-sidebar {
-  position: relative;
-}
-.container-content {
-  left: 250px;
-  position: absolute;
-  top: 0;
-  height: 100vh;
-  width: calc(100% - 250px);
-}
-.links-list {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 250px;
-  color: white;
-}
-.navigation-title{
-    padding: 10px 15px;
-color: rgb(225, 225, 225);
-font-size: 20px;
-}
-.links-list a{
-    text-decoration: none;
-}
-.links-list a:hover .link-text{
-  background-color: rgb(42, 42, 42);
-}
-.links-list a .link-text {
-    padding: 8px 15px;
-    color: white;
-}
-        
-    </style>
+    <link rel="stylesheet" href="_static/css/style.css">
 
     <script data-cfasync="false">
         document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
@@ -92,22 +51,22 @@ font-size: 20px;
                 <script>
                     // Script to dynamically adjust the height of the iframe
                     document.addEventListener('DOMContentLoaded', function () {
-                        var iframe = document.getElementById('cliprepoif');
+                        var iframe1 = document.getElementById('cliprepoif');
                         // Function to update the height
                         function updateIframeHeight() {
                             try {
-                                var iframeContent = iframe.contentWindow.document.body.scrollHeight;
-                                iframe.style.height = iframeContent + 'px';
+                                var iframeContent = iframe1.contentWindow.document.body.scrollHeight;
+                                iframe1.style.height = iframeContent + 'px';
                             } catch (e) {
                                 console.error('Error adjusting iframe height:', e);
                             }
                         }
                         // Event listener for the iframe load
-                        iframe.addEventListener('load', function () {
+                        iframe1.addEventListener('load', function () {
                             updateIframeHeight();
                             // Set up a MutationObserver to listen for changes in the iframe content
                             var observer = new MutationObserver(updateIframeHeight);
-                            observer.observe(iframe.contentWindow.document.body, {
+                            observer.observe(iframe1.contentWindow.document.body, {
                                 attributes: true,
                                 childList: true,
                                 subtree: true
@@ -125,22 +84,22 @@ font-size: 20px;
                 <script>
                     // Script to dynamically adjust the height of the iframe
                     document.addEventListener('DOMContentLoaded', function () {
-                        var iframe = document.getElementById('r2r_lm_final_commitment');
+                        var iframe2 = document.getElementById('r2r_lm_final_commitment');
                         // Function to update the height
                         function updateIframeHeight() {
                             try {
-                                var iframeContent = iframe.contentWindow.document.body.scrollHeight;
-                                iframe.style.height = iframeContent + 'px';
+                                var iframeContent = iframe2.contentWindow.document.body.scrollHeight;
+                                iframe2.style.height = iframeContent + 'px';
                             } catch (e) {
                                 console.error('Error adjusting iframe height:', e);
                             }
                         }
                         // Event listener for the iframe load
-                        iframe.addEventListener('load', function () {
+                        iframe2.addEventListener('load', function () {
                             updateIframeHeight();
                             // Set up a MutationObserver to listen for changes in the iframe content
                             var observer = new MutationObserver(updateIframeHeight);
-                            observer.observe(iframe.contentWindow.document.body, {
+                            observer.observe(iframe2.contentWindow.document.body, {
                                 attributes: true,
                                 childList: true,
                                 subtree: true
@@ -156,22 +115,22 @@ font-size: 20px;
                 <script>
                     // Script to dynamically adjust the height of the iframe
                     document.addEventListener('DOMContentLoaded', function () {
-                        var iframe = document.getElementById('r2r_python_ide');
+                        var iframe3 = document.getElementById('r2r_python_ide');
                         // Function to update the height
                         function updateIframeHeight() {
                             try {
-                                var iframeContent = iframe.contentWindow.document.body.scrollHeight;
-                                iframe.style.height = iframeContent + 'px';
+                                var iframeContent = iframe3.contentWindow.document.body.scrollHeight;
+                                iframe3.style.height = iframeContent + 'px';
                             } catch (e) {
                                 console.error('Error adjusting iframe height:', e);
                             }
                         }
                         // Event listener for the iframe load
-                        iframe.addEventListener('load', function () {
+                        iframe3.addEventListener('load', function () {
                             updateIframeHeight();
                             // Set up a MutationObserver to listen for changes in the iframe content
                             var observer = new MutationObserver(updateIframeHeight);
-                            observer.observe(iframe.contentWindow.document.body, {
+                            observer.observe(iframe3.contentWindow.document.body, {
                                 attributes: true,
                                 childList: true,
                                 subtree: true
