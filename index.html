@@ -89,6 +89,11 @@
                         <div class="link-text">r2r_python_ide</div>
                     </a>
                 </div>
+                <div>
+                    <a href="#r2r_research_questions_duq">
+                        <div class="link-text">r2r_research_questions_duq</div>
+                    </a>
+                </div>
             </div>
             <div class="container-content">
                 <!-- Clip Repo here -->
@@ -162,6 +167,36 @@
                     // Script to dynamically adjust the height of the iframe
                     document.addEventListener('DOMContentLoaded', function () {
                         var iframe3 = document.getElementById('r2r_python_ide');
+                        // Function to update the height
+                        function updateIframeHeight() {
+                            try {
+                                var iframeContent = iframe3.contentWindow.document.body.scrollHeight;
+                                iframe3.style.height = iframeContent + 'px';
+                            } catch (e) {
+                                console.error('Error adjusting iframe height:', e);
+                            }
+                        }
+                        // Event listener for the iframe load
+                        iframe3.addEventListener('load', function () {
+                            updateIframeHeight();
+                            // Set up a MutationObserver to listen for changes in the iframe content
+                            var observer = new MutationObserver(updateIframeHeight);
+                            observer.observe(iframe3.contentWindow.document.body, {
+                                attributes: true,
+                                childList: true,
+                                subtree: true
+                            });
+                        });
+                    });
+                </script>
+                <!-- Data widget here -->
+                <!-- Python IDE here -->
+                <iframe id="r2r_research_questions_duq" src="./r2r_research_questions_duq/index.html" width="100%" frameborder="0"></iframe>
+
+                <script>
+                    // Script to dynamically adjust the height of the iframe
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var iframe3 = document.getElementById('r2r_research_questions_duq');
                         // Function to update the height
                         function updateIframeHeight() {
                             try {
