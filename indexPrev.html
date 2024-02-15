@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>The Extent of The Problem &#8212; Road to Rigor (LM Version)</title>
+    <link rel="stylesheet" href="_static/css/style.css">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+
+        body {
+            background-color: black;
+            font-family: "Inter";
+        }
+
+        .container-with-sidebar {
+            position: relative;
+        }
+
+        .container-content {
+            left: 250px;
+            position: absolute;
+            top: 0;
+            height: 100vh;
+            width: calc(100% - 250px);
+        }
+
+        .links-list {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            color: white;
+        }
+
+        .navigation-title {
+            padding: 10px 15px;
+            color: rgb(225, 225, 225);
+            font-size: 20px;
+        }
+
+        .links-list a {
+            text-decoration: none;
+        }
+
+        .links-list a:hover .link-text {
+            background-color: rgb(42, 42, 42);
+        }
+
+        .links-list a .link-text {
+            padding: 8px 15px;
+            color: white;
+        }
+    </style>
+
+    <script data-cfasync="false">
+        document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+        document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    </script>
+
+</head>
+
+
+<body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%"
+    data-default-mode="">
+
+    <article>
+        <!-- Data widget here -->
+        <div class="container-with-sidebar">
+            <div class="links-list">
+                <div class="navigation-title">Navigation Links</div>
+                <div>
+                    <a href="#cliprepoif">
+                        <div class="link-text">clip-repo</div>
+                    </a>
+                </div>
+                <div>
+                    <a href="#r2r_lm_final_commitment">
+                        <div class="link-text">r2r_lm_final_commitment</div>
+                    </a>
+                </div>
+                <div>
+                    <a href="#r2r_python_ide">
+                        <div class="link-text">r2r_python_ide</div>
+                    </a>
+                </div>
+                <div>
+                    <a href="#r2r_research_questions_duq">
+                        <div class="link-text">r2r_research_questions_duq</div>
+                    </a>
+                </div>
+            </div>
+            <div class="container-content">
+                <!-- Clip Repo here -->
+                <iframe id="cliprepoif" src="./clip-repo/index.html" width="100%" frameborder="0"></iframe>
+
+                <script>
+                    // Script to dynamically adjust the height of the iframe
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var iframe1 = document.getElementById('cliprepoif');
+                        // Function to update the height
+                        function updateIframeHeight() {
+                            try {
+                                var iframeContent = iframe1.contentWindow.document.body.scrollHeight;
+                                iframe1.style.height = iframeContent + 'px';
+                            } catch (e) {
+                                console.error('Error adjusting iframe height:', e);
+                            }
+                        }
+                        // Event listener for the iframe load
+                        iframe1.addEventListener('load', function () {
+                            updateIframeHeight();
+                            // Set up a MutationObserver to listen for changes in the iframe content
+                            var observer = new MutationObserver(updateIframeHeight);
+                            observer.observe(iframe1.contentWindow.document.body, {
+                                attributes: true,
+                                childList: true,
+                                subtree: true
+                            });
+                        });
+                    });
+                </script>
+
+
+                <!-- Data widget here -->
+                <!-- Final commitment here -->
+                <iframe id="r2r_lm_final_commitment" src="./r2r_lm_final_commitment/index.html" width="100%"
+                    frameborder="0"></iframe>
+
+                <script>
+                    // Script to dynamically adjust the height of the iframe
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var iframe2 = document.getElementById('r2r_lm_final_commitment');
+                        // Function to update the height
+                        function updateIframeHeight() {
+                            try {
+                                var iframeContent = iframe2.contentWindow.document.body.scrollHeight;
+                                iframe2.style.height = iframeContent + 'px';
+                            } catch (e) {
+                                console.error('Error adjusting iframe height:', e);
+                            }
+                        }
+                        // Event listener for the iframe load
+                        iframe2.addEventListener('load', function () {
+                            updateIframeHeight();
+                            // Set up a MutationObserver to listen for changes in the iframe content
+                            var observer = new MutationObserver(updateIframeHeight);
+                            observer.observe(iframe2.contentWindow.document.body, {
+                                attributes: true,
+                                childList: true,
+                                subtree: true
+                            });
+                        });
+                    });
+                </script>
+
+                <!-- Data widget here -->
+                <!-- Python IDE here -->
+                <iframe id="r2r_python_ide" src="./r2r_python_ide/index.html" width="100%" frameborder="0"></iframe>
+
+                <script>
+                    // Script to dynamically adjust the height of the iframe
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var iframe3 = document.getElementById('r2r_python_ide');
+                        // Function to update the height
+                        function updateIframeHeight() {
+                            try {
+                                var iframeContent = iframe3.contentWindow.document.body.scrollHeight;
+                                iframe3.style.height = iframeContent + 'px';
+                            } catch (e) {
+                                console.error('Error adjusting iframe height:', e);
+                            }
+                        }
+                        // Event listener for the iframe load
+                        iframe3.addEventListener('load', function () {
+                            updateIframeHeight();
+                            // Set up a MutationObserver to listen for changes in the iframe content
+                            var observer = new MutationObserver(updateIframeHeight);
+                            observer.observe(iframe3.contentWindow.document.body, {
+                                attributes: true,
+                                childList: true,
+                                subtree: true
+                            });
+                        });
+                    });
+                </script>
+                <!-- Data widget here -->
+                <!-- Python IDE here -->
+                <iframe id="r2r_research_questions_duq" src="./r2r_research_questions_duq/index.html" width="100%" frameborder="0"></iframe>
+
+                <script>
+                    // Script to dynamically adjust the height of the iframe
+                    document.addEventListener('DOMContentLoaded', function () {
+                        var iframe3 = document.getElementById('r2r_research_questions_duq');
+                        // Function to update the height
+                        function updateIframeHeight() {
+                            try {
+                                var iframeContent = iframe3.contentWindow.document.body.scrollHeight;
+                                iframe3.style.height = iframeContent + 'px';
+                            } catch (e) {
+                                console.error('Error adjusting iframe height:', e);
+                            }
+                        }
+                        // Event listener for the iframe load
+                        iframe3.addEventListener('load', function () {
+                            updateIframeHeight();
+                            // Set up a MutationObserver to listen for changes in the iframe content
+                            var observer = new MutationObserver(updateIframeHeight);
+                            observer.observe(iframe3.contentWindow.document.body, {
+                                attributes: true,
+                                childList: true,
+                                subtree: true
+                            });
+                        });
+                    });
+                </script>
+            </div>
+        </div>
+
+
+    </article>
+
+</body>
+
+</html>
