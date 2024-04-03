@@ -1,0 +1,237 @@
+/* @import "./fallingConfettie.css";
+@import "./circularConfettie.css"; */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
+/* @import 'codemirror/lib/codemirror.css'; */
+/* @import 'codemirror/theme/material.css'; */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* scroller customization start */
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  border-radius: 100px;
+  background: #434649;
+}
+/* Corner */
+::-webkit-scrollbar-corner {
+  background: #00000000;
+  border: none;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #898e93;
+  border-radius: 100px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #adb2b8;
+}
+/* scroller customization end */
+body {
+  font-family: "Inter";
+}
+
+@layer components {
+  .center-t-xy {
+    @apply left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%];
+  }
+  .center-t-x {
+    @apply left-[50%] translate-x-[-50%];
+  }
+  .center-t-y {
+    @apply top-[50%] translate-y-[-50%];
+  }
+}
+.ͼ2 .cm-gutters {
+  border-right: 0px solid #ddd !important;
+}
+/* .ͼ1 .cm-lineNumbers .cm-gutterElement {
+  padding: 0 5px 0 2px !important;
+}
+.ͼ1 .cm-gutter.cm-foldGutter {
+  opacity: 0 !important;
+} */
+/*   
+  .origin-center{
+    transform-box: fill-box;
+    transform-origin: 50% 50%;
+  } */
+
+.annotation .title {
+  font-family: "Inter";
+  font-size: 33px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.annotation .content {
+  font-family: "Inter";
+  font-size: 18px;
+  text-align: center;
+  font-weight: normal;
+}
+
+.annotation .footer {
+  font-family: "Inter";
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.annotation .raven-img {
+  /* height: ?; */ /* Height of the annotation + 5px. */
+  float: left;
+}
+
+.annotation .body {
+  width: 620px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 -4px 0 0 #907b9a, 0 -4px 0 0 #532688;
+}
+
+.widget .header .title {
+  font-family: "Inter";
+  font-size: 33px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.widget .header .body {
+  font-family: "Inter";
+  font-size: 18px;
+  text-align: center;
+  font-weight: normal;
+}
+
+.widget .header .footer {
+  font-family: "Inter";
+  font-size: 14px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.widget .header .raven-img {
+  /* height: ?; */ /* Height of the widget. */
+  float: right;
+}
+
+.widget .header .body {
+  width: 890px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 -4px 0 0 #907b9a, 0 -4px 0 0 #532688;
+}
+
+.widget .container {
+  width: 882px;
+  background-color: #171819;
+  border-radius: 14px;
+  border-left: 2px solid #854abe;
+  border-right: 2px solid #854abe;
+}
+
+.widget .divider {
+  width: 100%;
+  background-color: #854abe;
+  height: 2px;
+}
+
+.widget .expando .body {
+  width: 858px;
+  height: 12px;
+  background-color: #854abe;
+  border-radius: 2px;
+  box-shadow: inset 0 -2px 0 0 #40235c;
+}
+
+.widget .expando .text {
+  font-family: "Inter";
+  font-size: 12px;
+  font-weight: bold;
+  text-align: center;
+  text-shadow: 0 -1px 0 rgba(255, 255, 255, 0.24);
+}
+
+.buttons .generative .clicked {
+  background-color: #5a3a69;
+  color: #ffffff;
+  -webkit-text-stroke: 3px #000000;
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.buttons .generative .unclicked {
+  background-color: #854abe;
+  color: #ffffff;
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.buttons .progressive .clicked {
+  background-color: #6e2e14;
+  color: #0e0f0f;
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.buttons .progressive .unclicked {
+  background-color: #dd8b3c;
+  color: #6e2e14;
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.buttons .back .unclicked {
+  background-color: #854abe;
+  color: #39303f;
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.buttons .passive .unclicked {
+  background-color: #907b9a;
+  color: #ffffff;
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.buttons .back .clicked {
+  background-color: #562e7c;
+  color: #0e0f0f;
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.buttons .passive .clicked {
+  background-color: #55495b;
+  color: #0e0f0f;
+  font-family: "Inter";
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.codeoutput-bg{
+background-color: #242525;
+}
+#codeoutput-bg svg{
+  width: 100%;
+  height: 100%;
+}
