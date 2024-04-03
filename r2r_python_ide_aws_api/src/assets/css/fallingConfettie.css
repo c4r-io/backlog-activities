@@ -1,0 +1,361 @@
+.svg-falling-confettie g {
+    transform-origin: 50% 50%;
+    transform-box: fill-box;
+  }
+  .svg-falling-confettie g:nth-child(odd) {
+    filter: blur(1px);
+  }
+  
+  .svg-falling-confettie .falling-confettie-particle-0 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.116s linear -0.3083744531045318s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-1 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.576s linear -0.6119058152533996s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-2 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.248s linear -8.61655648613513s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-3 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.5200000000000005s linear -1.7469745918971324s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-4 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.484000000000001s linear -0.8925932888406973s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-5 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.336s linear -3.650378406100705s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-6 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.708s linear -8.795913662475654s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-7 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.94s linear -1.6243432043581207s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-8 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.648s linear -8.408176352694078s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-9 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.516s linear -6.477472991053467s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-10 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.776s linear -3.039441656869404s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-11 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.684s linear -8.150079115925129s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-12 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.868s linear -1.987736658940178s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-13 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      4.0280000000000005s linear -1.9355176738857027s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-14 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.964s linear -0.8300218883542554s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-15 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.648s linear -8.373782125906658s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-16 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.62s linear -1.5964330679136696s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-17 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.844s linear -5.875974626379421s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-18 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.9s linear -9.9159602050075s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-19 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.096s linear -1.9371318960547934s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-20 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.864000000000001s linear -6.319594087088493s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-21 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.172000000000001s linear -7.456509141574661s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-22 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.332000000000001s linear -3.000063873051164s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-23 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.28s linear -3.0702878493892727s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-24 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.66s linear -9.888286308967134s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-25 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.256s linear -2.1505482516904872s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-26 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.14s linear -1.182012187243946s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-27 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.936s linear -4.9180761740550345s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-28 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.776s linear -8.894107680103016s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-29 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.104s linear -3.2743689767953543s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-30 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.6000000000000005s linear -3.482801693305202s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-31 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.48s linear -2.189640185906032s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-32 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.18s linear -4.568079643536094s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-33 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.0280000000000005s linear -4.793389551238469s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-34 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.28s linear -7.069268874939334s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-35 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      4.5680000000000005s linear -5.601270013818924s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-36 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      4.664000000000001s linear -8.113564974166799s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-37 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.024000000000001s linear -9.06691702204989s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-38 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.912s linear -3.1563477218130354s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-39 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.968s linear -9.731940162287998s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-40 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      4.784000000000001s linear -6.078877066944221s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-41 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.524000000000001s linear -0.5677540172543494s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-42 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.128s linear -2.0518779164162404s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-43 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.956s linear -8.892463605599694s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-44 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      4.252000000000001s linear -7.7970263817748275s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-45 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.16s linear -0.5565451773166008s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-46 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.408s linear -9.230555934647448s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-47 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.808s linear -6.481162174504287s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-48 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.86s linear -7.467053413867721s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-49 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.296s linear -4.006803223760795s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-50 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.856000000000001s linear -4.283019990194175s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-51 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.912s linear -9.260434468839637s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-52 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.932s linear -9.581798406688923s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-53 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.008s linear -3.752538537240986s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-54 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.532s linear -0.7786552299406191s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-55 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.66s linear -1.605004849056939s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-56 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.1000000000000005s linear -0.4530020251004174s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-57 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.768s linear -8.187961403902902s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-58 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.292000000000001s linear -6.641216609980171s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-59 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.464s linear -1.9575646331396745s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-60 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.404s linear -2.907185877236893s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-61 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.724s linear -2.645569856063812s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-62 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.244s linear -1.4374846502019456s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-63 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.856000000000001s linear -8.668914702184633s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-64 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.596s linear -9.858408456025625s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-65 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.024s linear -2.9587808291151885s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-66 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.524s linear -1.4593847642064395s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-67 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.472s linear -6.09934322671748s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-68 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      4.4159999999999995s linear -2.7860928798682183s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-69 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.956s linear -7.021268477838129s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-70 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.68s linear -7.701941333914433s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-71 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.884s linear -8.296194999770485s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-72 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.960000000000001s linear -8.40751145115037s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-73 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      4.284000000000001s linear -4.129313861693733s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-74 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      4.164000000000001s linear -9.367244756237646s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-75 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.072s linear -1.6501217130207446s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-76 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.78s linear -5.442563039247512s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-77 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.684000000000001s linear -7.204308025159043s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-78 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.672s linear -7.211882276230812s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-79 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      4.0680000000000005s linear -9.480414467663785s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-80 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.32s linear -2.194402856888602s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-81 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.32s linear -5.262902644051297s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-82 {
+    animation: _svg_falling_confettie_falling_confettie_particle 5.88s linear -0.8270030260104755s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-83 {
+    animation: _svg_falling_confettie_falling_confettie_particle 4.908s linear -4.939315987416459s
+      infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-84 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      5.832000000000001s linear -9.838727314557827s infinite normal;
+  }
+  .svg-falling-confettie .falling-confettie-particle-85 {
+    animation: _svg_falling_confettie_falling_confettie_particle
+      4.0840000000000005s linear -9.754583195788749s infinite normal;
+  }
+  @keyframes _svg_falling_confettie_falling_confettie_particle {
+    0% {
+      transform: translateY(-10px) rotate(0deg);
+    }
+    100% {
+      transform: translateY(520px) rotate(360deg);
+    }
+  }
+  
