@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>2 4 6 Activity </title>
+    <style>
+        #chart-container {
+
+        }
+
+        #my-graph {
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="chart-container" style="position: relative; height:50vh; width:60vw">
+      <canvas id="my-graph"></canvas>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      numGuesses = 3;
+      proportionDisproveAttempts = 0.5;
+
+      const ctx = document.getElementById('my-graph');
+
+      new Chart(ctx, {
+        type: 'line',
+        data: {
+          labels: [1, 2, 3, 4, 5, 6, 7, 8],
+          datasets: [{
+            label: 'Previous participants (Test Data)',
+            data: [0.2, 0.4, 0.7, 0.8, 1.0],
+            borderWidth: 3,
+            backgroundColor: 'rgba(0, 255, 0, 0.8)',
+            radius: 6,
+          },
+          {
+            type: 'bubble', // 'bubble' type will create a point
+            label: 'You',
+            data: [{x: numGuesses, y: proportionDisproveAttempts, r: 10}], // x and y are coordinates, r is the radius of the point
+            backgroundColor: 'rgba(255, 0, 0, 0.6)', // color of the point
+          }]
+        },
+        options: {
+          plugins: {
+            legend: {
+              labels: {
+                color: 'rgb(0, 0, 0)',
+                font: {
+                  size: 16
+                }
+              },
+              onClick: null // Disable legend click event
+            },
+            title: {
+              display: true,
+              text: ''
+            },
+            tooltip: { 
+              enabled: false
+            }
+          },
+          scales: {
+            x: {
+              title: {
+                display: true,
+                text: 'Number of attempts to guess the rule',
+                font: {
+                  size: 20
+                }
+              },
+              beginAtZero: true,
+              ticks: {
+                font: {
+                  size: 14
+                }
+              }
+            },
+            y: {
+              title: {
+                display: true,
+                text: 'Proportion of incompatible instances',
+                font: {
+                  size: 20
+                }
+              },
+              beginAtZero: true,
+              ticks: {
+                font: {
+                  size: 14
+                }
+              }
+            }
+          },
+          responsive: true,
+          maintainAspectRatio: false,
+        }
+      });
+    </script>
+
+</body>
