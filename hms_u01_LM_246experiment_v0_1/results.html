@@ -1,0 +1,306 @@
+<!-- 
+    Confirmation Bias Activity
+
+    This activity is emulate Peter Wason's confirmation bias experiment.
+    The user is presented with three numbers that follow a certain rule, which they have to eventually determine.
+    The user must then enter three numbers that they think follow the same rule.
+    The user's entries are displayed in a table, along with the reason they think the numbers follow the rule.
+    The point is for users to realize that they are biased towards confirming their own hypothesis, and that they should try to disprove it instead.
+
+    The activity is broken into two parts: the admin panel and the user panel.
+    The admin panel is used to set the rule that the user must guess.
+    The user panel is used to enter their guesses and reasons for why they think the numbers follow the rule.
+    The user panel also displays the entries in a table, and allows the user to guess the rule.
+    The user can also view the correct rule from the admin panel.
+    
+ -->
+ <!DOCTYPE html>
+ <html>
+     <head>
+         <title>Confirmation Bias - Results</title>
+         <style>
+ 
+             body {
+                 /* margin: 0;
+                 padding: 0;
+                 font-family: sans-serif; */
+                 background-color: black;
+             }
+ 
+             .results-page-container {
+                 display: flex;
+                 flex-direction: column;
+                 align-items: center;
+                 justify-content: center;
+                 height: 100vh;
+                 gap: 30px;
+             }
+ 
+             .rule-description-container {
+                 display: flex;
+                 flex-direction: row;
+                 align-items: center;
+                 justify-content: center;
+                 width: 40%;
+                 height: 15%;
+                 background-color: #ffffff;
+             }
+ 
+             .guess-summary-area {
+                 display: flex;
+                 flex-direction: column;
+                 align-items: center;
+                 justify-content: flex-start;
+                 width: 90%;
+                 height: 60%;
+                 background-color: #ffffff;
+             }
+             .summary-header-text {
+                 display: flex;
+                 flex-direction: column;
+                 text-align: center;
+             }
+             .summary-header-text h2 {
+                 /* font-size: 30px; */
+                 font-family: sans-serif;
+                 text-align: center;
+                 margin: 5px;
+             }
+             .summary-body {
+                 display: flex;
+                 flex-direction: row;
+                 justify-content: space-evenly;
+                 /* margin-top: 40px; */
+                 height: 80%;
+             }
+             .summary-body-left {
+                 display: flex;
+                 flex-direction: column;
+                 align-items: center;
+                 justify-content: flex-start;
+                 width: 60%;
+                 height: 100%;
+                 /* background-color: #ffffff; */
+             }
+             .summary-body-right {
+                 display: flex;
+                 flex-direction: column;
+                 align-items: center;
+                 justify-content: flex-start;
+                 width: 25%;
+                 height: 100%;
+                 /* background-color: #ffffff; */
+             }
+ 
+             /* styled table with even spacing, white text, white lines, purple backgroun */
+             table {
+                 border-collapse: collapse;
+                 width: 100%;
+                 color: white;
+                 font-family: sans-serif;
+                 font-size: 15px;
+                 text-align: center;
+                 background-color: #6d38a8;
+                 /* font-size: clamp(1rem, 2.5vw, 2rem); */
+             }
+             th {
+                 background-color: #6d38a8;
+                 color: white;
+                 padding: 10px;
+                 border: 1px solid #ddd;
+             }
+             tr:nth-child(even) {
+                 background-color: #6d38a8;
+                 color: white;
+                 padding: 10px;
+             }
+             tr:nth-child(odd) {
+                 background-color: #6d38a8;
+                 color: white;
+                 padding: 10px;
+             }
+             td {
+                 /* background-color: #6d38a8; */
+                 color: white;
+                 padding: 15px;
+                 border: 1px solid #ddd;
+             }
+ 
+             button {
+                 background-color: #6d38a8;
+                 color: white;
+                 padding: 20px;
+                 border: 1px solid #ddd;
+                 font-size: medium;
+             }
+ 
+             #next-guess-btn {
+                 /* margin-top: 20px; */
+             }
+             #compare-results-btn {
+                 /* margin-top: 20px; */
+                 display: none;
+             }
+ 
+ 
+             .highlighted-row {
+                 background-color: #291143 !important;  /* change this color as needed */
+             }
+ 
+ 
+             
+ 
+         </style>
+     </head>
+     <body>
+ 
+         <!-- flex column orientation -->
+         <div class="results-page-container">
+             <!-- Rule description header -->
+             <div class="rule-description-container">
+                 <!-- image here -->
+                 <div class="rule-description-image">
+                     <img src="assets/raven-white-bg-05.svg" width="70px">
+                 </div>
+                 <div class="rule-description-text">
+                     <h2>My rule is:</h2>
+                     <h2>ANY INCREASING SERIES OF NUMBERS </h2>
+                 </div>
+             </div>
+             
+             <!-- Guess summary -->
+             <div class="guess-summary-area">
+                 <div class="summary-header-text">
+                     <h2>Which of your guesses were attempts to CONFIRM your belief in what you thought the rule was?</h2>
+                     <h2>Which of your guesses were attempts to FAlSIFY your belief in what you thought the rule was?</h2>
+                 </div>
+                 <div class="summary-body">
+                     <div class="summary-body-left">
+                         <!-- table consisting of Series| Matches Rule | Rule Guess | Confidence | Tried to falsify|  -->
+                         <table id="dataTable">
+                         </table> 
+                     </div>
+                     <div class="summary-body-right">
+ 
+                         <p>For your first guess, your hypothesis was that the rule was even numbers increasing by 2.</p>
+                         <p>The number series you used for your first guess was 8,10,12.</p>
+                         <p>Your first guess was an attempt to confirm your hypothesis.</p>
+                         <p>What I mean by that is that the number series you used in your first guess was a number series that fit the rule that you hypothesized to be my rule.</p>
+                         <p>Therefore, your first guess was not an attempt to falsify your hypothesis.</p>
+ 
+                         <!-- button -->
+                         <button id="next-guess-btn" onclick="viewNextGuess()">Explore my next guess</button>
+                         <button id="compare-results-btn" onclick="viewResultsComparison()">Compare my results</button>
+                     </div>
+                 </div>
+             </div>
+         <div>
+ 
+         <script>
+             // Accepts data structure of guesses and reasons
+ 
+             // Current 
+ 
+             
+             //Data strictire of guesses and reasons
+             userGuesses = 
+             [
+     {
+         "entryNumber": 0,
+         "sequence": "4354, 3534, 5345",
+         "rule": "my rule 1",
+         "matchesRule": false,
+         "confidence": "92"
+     },
+     {
+         "entryNumber": 1,
+         "sequence": "3253, 4654, 5654",
+         "rule": "My rule 2",
+         "matchesRule": false,
+         "confidence": "67"
+     },
+     {
+         "entryNumber": 2,
+         "sequence": "3243, 2423, 4324",
+         "rule": "My Rule 3",
+         "matchesRule": false,
+         "confidence": "67"
+     }
+ ]
+ 
+             currentRow = 0;
+             
+             function renderTable(userGuesses) {
+ 
+                 // Table formatted as Series (3 numbers), Matches Rule (Yes/No), Rule Guess (text), Confidence (1-100%), Tried to falsify (Yes/No)
+ 
+                 // Select table
+                 var table = document.getElementById("dataTable");
+ 
+                 // Create table header
+                 var header = table.createTHead();
+                 var row = header.insertRow(0);
+                 var cell = row.insertCell(0);
+                 cell.innerHTML = "<b>Series</b>";
+                 cell = row.insertCell(1);
+                 cell.innerHTML = "<b>Matches Rule</b>";
+                 cell = row.insertCell(2);
+                 cell.innerHTML = "<b>Rule Guess</b>";
+                 cell = row.insertCell(3);
+                 cell.innerHTML = "<b>Confidence</b>";
+                 cell = row.insertCell(4);
+                 cell.innerHTML = "<b>Tried to falsify</b>";
+ 
+                 // Create table body
+                 var body = table.createTBody();
+                 for (var i = 0; i < userGuesses.length; i++) {
+                     var row = body.insertRow(i);
+                     if(i === currentRow) row.classList.add('highlighted-row'); // highlights first row
+ 
+                     var cell = row.insertCell(0);
+                     cell.innerHTML = userGuesses[i].sequence;
+                     cell = row.insertCell(1);
+                     cell.innerHTML = userGuesses[i].matchesRule;
+                     cell = row.insertCell(2);
+                     cell.innerHTML = userGuesses[i].rule;
+                     cell = row.insertCell(3);
+                     cell.innerHTML = userGuesses[i].confidence;
+                     cell = row.insertCell(4);
+                     // cell.innerHTML = userGuesses[i].triedToFalsify;
+                 }
+             }
+             renderTable(userGuesses);
+ 
+ 
+             function viewNextGuess() {
+                 var table = document.getElementById("dataTable");
+ 
+                 // Remove highlight from current row
+                 table.rows[currentRow + 1].classList.remove('highlighted-row');
+ 
+                 // Move to next row
+                 currentRow++;
+                 if(currentRow >= table.rows.length - 2) {
+                     //currentRow = 0; // Wraps around to the first row when it reaches the end
+                     // Swap out button for "View Results Comparison" button
+                     document.getElementById("next-guess-btn").style.display = "none";
+                     document.getElementById("compare-results-btn").style.display = "block";
+                 }
+ 
+                 // Add highlight to new row
+                 table.rows[currentRow + 1].classList.add('highlighted-row');
+ 
+                 // console.log its data
+                 console.log(userGuesses[currentRow]);
+             }
+             function viewPreviousGuess() {
+ 
+             }
+             function viewResultsComparison() {
+ 
+             }
+ 
+         </script>
+     </body>
+ </html>
+ 

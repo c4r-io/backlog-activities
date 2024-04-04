@@ -1,0 +1,30 @@
+I'm conducting an analysis of a participant's approach in Wason's 2-4-6 task and require your expertise in evaluating their strategy. 
+
+The participant is provided with a sequence of 3 numbers and is tasked with figuring out the hidden rule that aligns with these numbers.
+
+The participant is not told the hidde
+The hidden rule is: "Any sequence of increasing numbers", but the participant is not told this. They are only provided with a hint of a sequnce that aligns with it: 2, 4, 6.
+
+Their method of figuring out the hidden rule is by guessing a sequence of 3 numbers and receiving feedback on whether it conforms to the hidden rule or not. Upon each guess, they might revise their current guess of what the hidden rule is. 
+
+For each guess I have collected the following data: The participants current guess of what the rule is, the participant's sequence of 3 numbers that they are currently testing, our calculation of whether their numbers sequence matches the hidden rule (true/false).
+
+Please analyze the data provided and determine at each step whether the participant appears to be using their number sequence guess to disprove their current hypothesis, or confirm their hypothesis. If they appear to be disposing their hypothesis, assign the value 'true' to disproveAttempt. I request that your response be structured to reflect this evaluation for each guess, considering the progression in their guesses, the feedback received, and changes in their confidence levels.
+
+Please respond with strictly true or false for your analysis of each. Format your answers in a json format. Example: 
+[
+    {
+        "entryNumber": 0,
+        "disproveAttempt": true
+    },
+    {
+        "entryNumber": 1,
+        "disproveAttempt": false
+    },
+    {
+        "entryNumber": 2,
+        "disproveAttempt": false
+    }
+]
+
+Do not respond with any additional text. just this formatted json response. Even if you cant come up with an answer.

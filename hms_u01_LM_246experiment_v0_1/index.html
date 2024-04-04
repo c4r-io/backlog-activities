@@ -1,0 +1,2015 @@
+<!-- 
+    Confirmation Bias Activity
+
+    This activity is emulate Peter Wason's confirmation bias experiment.
+    The user is presented with three numbers that follow a certain rule, which they have to eventually determine.
+    The user must then enter three numbers that they think follow the same rule.
+    The user's entries are displayed in a table, along with the reason they think the numbers follow the rule.
+    The point is for users to realize that they are biased towards confirming their own hypothesis, and that they should try to disprove it instead.
+
+    The activity is broken into two parts: the admin panel and the user panel.
+    The admin panel is used to set the rule that the user must guess.
+    The user panel is used to enter their guesses and reasons for why they think the numbers follow the rule.
+    The user panel also displays the entries in a table, and allows the user to guess the rule.
+    The user can also view the correct rule from the admin panel.
+
+    
+ -->
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Confirmation Bias</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #121212;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
+
+            .app-container {
+                /* width: 500px; */
+                display: flex;
+                align-items: flex-start;
+                /* min-width: 300px; */
+                gap: 20px;
+            }
+
+            .input-pane {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+                margin-bottom: 20px;
+                box-shadow: 4px 4px 3px 0px #6d39a8;
+                width: 550px;
+            }
+
+            .input-pane-final-guess {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+
+                background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                /* box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); */
+                margin-bottom: 20px;
+                box-shadow: 4px 4px 3px 0px #6d39a8;
+                width: 550px;
+                display: none;
+            }
+
+            #dataForm {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .input-form-header {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+            }
+            .input-form-header h3 {
+                font-size: 32px;
+                margin: 5px;
+                padding: 0px;
+                align-self: baseline;
+                text-align: left;
+            }
+            form {
+                /* background-color: #fff;
+                padding: 20px;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                margin-bottom: 20px; */
+            }
+
+            table {
+                background-color: #fff;
+                border-collapse: collapse;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                min-width: 300px;
+                background-color: #6d38a8;
+                color: white;
+            }
+
+            th,
+            td {
+                padding: 10px;
+                border: 1px solid #ddd;
+                /* background-color: #6d38a8; */
+                color: white;
+                background-color: inherit;
+            }
+
+            th {
+                background-color: #f0f0f0;
+                background-color: #6d38a8;
+                color: white;
+            }
+
+            tr {
+                background-color: #6d38a8;
+                color: white;
+            }
+
+            /* tr:hover {
+                background-color: #f5f5f5;
+            } */
+            input[type="number"],
+            input[type="text"] {
+                padding: 10px;
+                margin: 5px 0;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                /* width: calc(100% - 22px); */
+                width: 80%;
+            }
+
+            input[type="submit"] {
+                background-color: #4a2d6b;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                /* margin-top: 10px; */
+            }
+
+            input[type="submit"]:hover {
+                background-color: #251736;
+            }
+
+            /* input[type="number"],
+            input[type="text"] {
+                padding: 10px;
+                margin: 5px 0;
+                border: 1px solid #ddd;
+                border-radius: 5px;
+                width: calc(100% - 22px);
+            } */
+            button {
+                background-color: #4caf50;
+                color: white;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 10px;
+            }
+
+            button:hover {
+                background-color: #8344cb;
+            }
+
+            .slider {
+                -webkit-appearance: none;
+                width: 100%;
+                height: 20px;
+                background: #ffffff;
+                outline: none;
+                opacity: 0.9;
+                -webkit-transition: 0.3s;
+                transition: opacity 0.3s;
+                border-radius: 5px;
+            }
+
+            .slider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+                width: 64px;
+                height: 55px;
+                border: 0;
+                /* background: url("assets/anon-raven-icon.png"); */
+                /* background: url("assets/raven-white-bg-16-icon.png"); */
+                background: url("assets/raven-white-bg-16.svg");
+                cursor: pointer;
+            }
+
+            .slider::-moz-range-thumb {
+                width: 48px;
+                height: 38px;
+                border: 0;
+                /* background: url("assets/anon-raven-icon.png.png"); */
+                background: url("assets/raven-white-bg-16.svg");
+                cursor: pointer;
+            }
+
+            .slider:hover {
+                opacity: 1;
+            }
+
+            .num-entry-row {
+                display: flex;
+                flex-direction: row;
+            }
+
+            .confidence-and-submit-container {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                width: 80%;
+                gap: 10px;
+                background: #6d39a8;
+                padding: 8px;
+            }
+
+            /* final guess button disbaled until 3 entries */
+            #finalGuessBtn {
+                display: none;
+                /* testing */
+                /* display: block; */
+                margin-top: 20px;
+                padding: 10px;
+            }
+
+            #seriesEntryForm {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #6d39a8;
+                padding: 8px;
+                color: #ffffff;
+                border-radius: 5px;
+                font-size: larger;
+                width: 80%;
+            }
+
+            #seriesEntryForm input[type="number"] {
+                text-align: center;
+                margin: 0 10px;
+                width: 75px;
+                /* adjust as needed */
+                -moz-appearance: textfield;
+                /* disable field arrows on Firefox */
+                background: #6d39a8;
+                color: #ffffff;
+                border: none;
+                border-bottom: #ffffff 2px solid;
+                border-radius: 0px;
+                font-size: larger;
+            }
+
+            #seriesEntryForm input[type="number"]:hover {
+                background: #8344cb;
+            }
+
+            /* Disable field arrows on Chrome / Safaro */
+            #seriesEntryForm input[type="number"]::-webkit-outer-spin-button,
+            input::-webkit-inner-spin-button {
+                -webkit-appearance: none;
+                margin: 0;
+            }
+
+            #admin-panel {
+                /* margin-right: 20px; */
+                display: none;
+            }
+
+            .guess-panel-right-side {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 20px;
+                /* width: 100%; */
+            }
+
+            .final-guess-panel {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                background-color: #ffffff;
+                padding: 20px;
+                border-radius: 10px;
+                /* box-shadow: 4px 4px 3px 0px #6d39a8; */
+                /* width: 100%; */
+                /* color: white; */
+                display: none;
+            }
+
+            /* Results page styles */
+
+            .results-page-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                gap: 30px;
+
+                display: none;
+            }
+
+            .rule-description-container {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                background-color: #ffffff;
+                width: 500px;
+                height: min-content;
+            }
+
+            .rule-description-text {
+                /* display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 100%;
+                height: 100%; */
+                /* background-color: #ffffff; */
+                text-align: center;
+            }
+
+            .rule-description-text h2 {
+                /* font-size: 30px; */
+                font-family: sans-serif;
+                text-align: center;
+                margin: 5px;
+            }
+
+            .rule-description-image {
+                position: relative;
+                width: 37px;
+
+                /* display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 40%;
+                height: 100%; */
+                /* background-color: #ffffff; */
+            }
+
+            .rule-description-image img {
+                /* width: 100%; */
+                /* height: 100%; */
+                /* background-color: #ffffff; */
+                width: 112px;
+                position: absolute;
+                bottom: -60px;
+                left: -72px;
+            }
+
+            .instructions-image {
+                position: relative;
+                width: 115px;
+
+                /* display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                width: 40%;
+                height: 100%; */
+                /* background-color: #ffffff; */
+            }
+
+            .instructions-image img {
+                width: 100%;
+                /* height: 100%; */
+                /* background-color: #ffffff; */
+                width: 140px;
+                position: absolute;
+                /* bottom: -116px; */
+                left: -15%;
+            }
+
+            #rule {
+                background-color: #6d39a8;
+                color: white;
+                padding: 10px;
+                font-size: larger;
+                border: 0px;
+                border-bottom: #ffffff 2px solid;
+                border-radius: 0px;
+                /* padding: 50px; */
+            }
+
+            #rule-input-area {
+                background-color: #6d39a8;
+                /* margin:50px; */
+                width: 80%;
+                border-radius: 5px;
+                padding: 5px;
+            }
+
+            #submitGuessBtn {
+                width: 95px;
+                /* text-wrap: balance; Not supported on Firefox or Safari */
+                white-space: pre-wrap;
+            }
+
+            .guess-summary-area {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                width: 90%;
+                height: 70%;
+                background-color: #ffffff;
+            }
+
+            .summary-header-text {
+                display: flex;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .summary-header-text h2 {
+                /* font-size: 30px; */
+                font-family: sans-serif;
+                text-align: center;
+                margin: 5px;
+            }
+
+            .summary-body {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                /* margin-top: 40px; */
+                height: 65%;
+            }
+            .comparison-summary-body {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-evenly;
+                /* margin-top: 40px; */
+                height: 75%;
+            }
+
+            .summary-body-left {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                width: 60%;
+                height: 100%;
+                /* background-color: #ffffff; */
+            }
+
+            .summary-body-right {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: flex-start;
+                width: 35%;
+                height: 100%;
+                justify-content: space-between;
+
+                /* background-color: #ffffff; */
+            }
+
+            /* styled table with even spacing, white text, white lines, purple backgroun */
+            #resultsTable {
+                border-collapse: collapse;
+                width: 100%;
+                color: white;
+                font-family: sans-serif;
+                font-size: 15px;
+                text-align: center;
+                background-color: #6d38a8;
+                /* font-size: clamp(1rem, 2.5vw, 2rem); */
+            }
+
+            .results-table-header {
+                background-color: #6d38a8;
+                color: white;
+                padding: 10px;
+                border: 1px solid #ddd;
+            }
+
+            .results-table-row:nth-child(even) {
+                background-color: #6d38a8;
+                color: white;
+                padding: 10px;
+            }
+
+            .results-table-row:nth-child(odd) {
+                background-color: #6d38a8;
+                color: white;
+                padding: 10px;
+            }
+
+            .results-table-cell {
+                /* background-color: #6d38a8; */
+                color: white;
+                padding: 15px;
+                border: 1px solid #ddd;
+            }
+
+            button {
+                background-color: #6d38a8;
+                color: white;
+                padding: 20px;
+                border: 1px solid #ddd;
+                font-size: medium;
+            }
+
+            #next-guess-btn {
+                /* margin-top: 20px; */
+            }
+
+            #compare-results-btn {
+                /* margin-top: 20px; */
+                display: none;
+            }
+
+            .highlighted-row {
+                background-color: #291143 !important;
+                /* change this color as needed */
+            }
+
+            #dataForm p {
+                font-size: 18px;
+                width: 85%;
+                text-align: left;
+            }
+
+            #dataForm h3 {
+                font-size: 32px;
+                margin: 5px;
+                padding: 0px;
+                align-self: baseline;
+                text-align: left;
+            }
+
+            .comparison-page-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 100vh;
+                gap: 30px;
+
+                display: none;
+            }
+
+            .chart-image {
+                width: 100%;
+                height: 100%;
+                /* background-color: #ffffff; */
+            }
+
+            .instructions-modal {
+                display: flex;
+                position: fixed;
+                z-index: 1;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                overflow: auto;
+                background-color: rgba(0, 0, 0, 0.4);
+                align-items: center;
+                justify-content: center;
+                color: white;
+            }
+
+            .instructions-text-container {
+                background-color: #6d39a8;
+                padding: 30px;
+                border-radius: 10px;
+                width: 80%;
+                max-width: 801px;
+                margin: auto;
+                text-align: left;
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                align-content: flex-start;
+                justify-content: flex-start;
+            }
+
+            .instructions-text {
+                background-color: #6d39a8;
+                /* padding: 4px; */
+                border-radius: 10px;
+                width: 80%;
+                max-width: 700px;
+                margin: auto;
+                text-align: left;
+                display: flex;
+                align-items: flex-start;
+                flex-direction: column;
+                text-shadow: 1px 1px 1px #000000eb;
+            }
+
+            .instructions-text p {
+                font-size: 20px;
+                margin: 14px 10;
+            }
+
+            .close-modal-button {
+                padding: 10px 20px;
+                border-radius: 5px;
+                background-color: #f2f2f2;
+                color: #333;
+                border: none;
+                cursor: pointer;
+                font-size: 16px;
+                display: block;
+                margin: 20px auto 0;
+                /* Center the button horizontally */
+            }
+
+            /* Additional style for better appearance */
+            .close-modal-button:hover {
+                background-color: #e1e1e1;
+            }
+
+            .feedback-text {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .loader {
+                display: none;
+                position: absolute;
+                width: 300px;
+                aspect-ratio: 1;
+                border-radius: 50%;
+                background: radial-gradient(farthest-side, #703ca1 94%, #0000)
+                        top/40px 40px no-repeat,
+                    conic-gradient(#0000 30%, #854abe);
+                -webkit-mask: radial-gradient(
+                    farthest-side,
+                    #0000 calc(100% - 40px),
+                    #000 0
+                );
+                animation: l13 1s infinite linear;
+                top: 35%;
+            }
+            @keyframes l13 {
+                100% {
+                    transform: rotate(1turn);
+                }
+            }
+
+            .summary-page-buttons {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-between;
+                width: 80%;
+                gap: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div class="app-container">
+            <!-- <div class="loader" id="loader"></div> -->
+            <div class="instructions-modal">
+                <div class="instructions-text-container">
+                    <div class="instructions-text">
+                        <h1>Deduce my number rule!</h1>
+                        <p>
+                            I have a SECRET rule that matches SOME sequence of
+                            three numbers.
+                        </p>
+                        <p>e.g. Each number is a multiple of 3.</p>
+
+                        <h1>Instructions!</h1>
+                        <p>
+                            1. Test sequences of three integers against my
+                            rule.I will tell you if your sequence matches.
+                        </p>
+                        <p>
+                            2. Here is a clue: the sequence {2, 4, 6} DOES match
+                            the rule.
+                        </p>
+                        <p>
+                            3. When you are confident that you know the rule,
+                            submit your final guess!
+                        </p>
+                        <button
+                            class="close-modal-button"
+                            onclick="closeInstructionsModal()"
+                        >
+                            Close
+                        </button>
+                    </div>
+                    <!-- image from assets:raven-white-bg-01.svg -->
+                    <div class="instructions-image">
+                        <img
+                            class="rule-description-raven"
+                            src="assets/raven-white-bg-01.svg"
+                            width="70px"
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <!-- input pane used for admin mode -->
+            <div class="input-pane" id="admin-panel">
+                <!-- <div class="loader" id="loader"></div> -->
+                <h1>Dev setup panel</h1>
+                <p>
+                    Manualy select the rule in the UI for testing / demo
+                    purposes
+                </p>
+                <label for="correctRule">Rule:</label>
+                <select id="correctRule" name="correctRule">
+                    <!-- <option value="Increase by 1">Increase by 1</option> -->
+                </select>
+            </div>
+
+            <!-- standard input pane to be used -->
+            <div class="input-pane" id="input-pane">
+                <div class="input-form-header">
+                    <h3>Test a sequence of three integers</h3>
+                    <button id="help-btn" onclick="openInstructionsModal()">
+                        Help
+                    </button>
+                </div>
+
+                <form id="dataForm">
+                    <div id="seriesEntryForm">
+                        <input
+                            type="number"
+                            id="number1"
+                            maxlength="4"
+                            pattern="\d*"
+                            inputmode="numeric"
+                            max="9999"
+                            required
+                        />
+                        <span>,</span>
+                        <input
+                            type="number"
+                            id="number2"
+                            maxlength="4"
+                            pattern="\d*"
+                            inputmode="numeric"
+                            max="9999"
+                            required
+                        />
+                        <span>,</span>
+                        <input
+                            type="number"
+                            id="number3"
+                            maxlength="4"
+                            pattern="\d*"
+                            inputmode="numeric"
+                            max="9999"
+                            required
+                        />
+                    </div>
+
+                    <h3>What is the hypothesis for your sequence?</h3>
+
+                    <div id="rule-input-area">
+                        <input type="text" id="rule" name="rule" required />
+                    </div>
+                    <br /><br />
+
+                    <div class="confidence-and-submit-container">
+                        <input
+                            type="submit"
+                            value="Guess the Rule!"
+                            name="submitGuessBtn"
+                            id="guessRuleBtn"
+                        />
+
+                        <input
+                            type="submit"
+                            value="Test the Sequence!"
+                            name="submitGuessBtn"
+                            id="submitGuessBtn"
+                        />
+                    </div>
+                    <input
+                        type="submit"
+                        value="Submit Final Guess"
+                        name="finalGuessBtn"
+                        id="finalGuessBtn"
+                    />
+                </form>
+            </div>
+
+            <div class="input-pane-final-guess" id="input-pane-final-guess">
+                <div class="loader" id="loader"></div>
+
+                <div class="input-form-header">
+                    <h3>What is your guess for my rule?</h3>
+                    <button id="help-btn" onclick="openInstructionsModal()">
+                        Help
+                    </button>
+                </div>
+
+                <form id="dataForm-final-guess">
+                    <h3>What is your guess for my rule?</h3>
+                    <div id="rule-input-area">
+                        <input type="text" id="rule" name="rule" required />
+                    </div>
+                    <br /><br />
+
+                    <div class="confidence-and-submit-container">
+                        <input
+                            type="submit"
+                            value="Submit Final Guess!"
+                            name="submit-rule-btn"
+                            id="submit-rule-btn"
+                        />
+                        <input
+                            type="submit"
+                            value="Actually, I want to test more sequences!"
+                            name="test-more-sequences-btn"
+                            id="test-more-sequences-btn"
+                        />
+                    </div>
+                </form>
+            </div>
+
+            <div class="guess-panel-right-side">
+                <!-- Table to Display Entries -->
+                <table id="dataTable">
+                    <tr id="tableBody">
+                        <th>#</th>
+                        <th>Sequence</th>
+                        <th>Hypothesis</th>
+                        <th>Matches the Rule?</th>
+                        <!-- <th>Confidence</th> -->
+                    </tr>
+                </table>
+                <div class="final-guess-panel">
+                    <h1>Final Guess</h1>
+                    <p>
+                        When you think you know my rule, submit your final guess
+                        and find out!
+                    </p>
+                    <button id="finalGuessBtn" onclick="submitFinalGuess()">
+                        Guess the Rule!
+                    </button>
+                    <button id="finalGuessBtn" onclick="submitFinalGuess()">
+                        Test the Sequence!
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results section -->
+        <div class="results-page-container">
+            <!-- Rule description header -->
+            <div class="rule-description-container">
+                <!-- image here -->
+                <div class="rule-description-image">
+                    <img
+                        class="rule-description-raven"
+                        src="assets/raven-white-bg-05.svg"
+                        width="70px"
+                    />
+                </div>
+                <div class="rule-description-text">
+                    <h2>Your final guess:</h2>
+                    <h2 id="final-guess-text"></h2>
+                    <h2>The Correct Rule is:</h2>
+                    <h2 id="correct-rule-text">
+                        ANY INCREASING SERIES OF NUMBERS
+                    </h2>
+                </div>
+            </div>
+
+            <!-- Guess summary -->
+            <div class="guess-summary-area">
+                <!-- button -->
+                <!-- <button id="initial-page-btn" onclick="reloadInitialPage()">
+                Previous page
+            </button> -->
+                <div class="summary-header-text">
+                    <h3>
+                        Here are my guesses as to which of your sequences were
+                        attempts to CONFIRM your hypothesis and which ones were
+                        attempts to FALSIFY your hypothesis.
+                    </h3>
+                    <!-- <h3>
+                    Which of your guesses were attempts to FALSIFY your
+                    belief in what you thought the rule was?
+                </h3> -->
+                </div>
+                <div class="summary-body">
+                    <div class="summary-body-left">
+                        <!-- table consisting of Series| Matches Rule | Rule Guess | Confidence | Tried to falsify|  -->
+                        <table id="resultsTable"></table>
+                    </div>
+                    <div class="summary-body-right">
+                        <div class="feedback-text"></div>
+                        <!-- button -->
+
+                        <!-- <button id="initial-page-btn" onclick="reloadInitialPage()">
+                        Previous page
+                    </button>
+
+                    <button id="previous-guess-btn" onclick="viewPreviousGuess()">
+                        View previous guess
+                    </button>
+
+                    <button id="next-guess-btn" onclick="viewNextGuess()">
+                        Explore my next guess
+                    </button>
+                    <button id="compare-results-btn" onclick="viewResultsComparison()">
+                        Compare my results
+                    </button> -->
+                        <!-- <button id="override-feedback-btn" onclick="overrideAIFeedback()">
+                        Override AI feedback
+                    </button> -->
+                        <!-- <button id="learn-more-btn" >
+                        Learn more about bias
+                    </button> -->
+                    </div>
+                </div>
+                <div class="summary-page-buttons">
+                    <button id="initial-page-btn" onclick="reloadInitialPage()">
+                        Previous page
+                    </button>
+
+                    <button
+                        id="previous-guess-btn"
+                        onclick="viewPreviousGuess()"
+                    >
+                        View previous guess
+                    </button>
+
+                    <button id="next-guess-btn" onclick="viewNextGuess()">
+                        Explore my next guess
+                    </button>
+                    <button
+                        id="compare-results-btn"
+                        onclick="viewResultsComparison()"
+                    >
+                        Compare my results
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Comparison section -->
+        <div class="comparison-page-container">
+            <!-- Feedback header -->
+            <div class="rule-description-container">
+                <!-- image here -->
+                <div class="rule-description-image">
+                    <img
+                        class="rule-description-raven"
+                        src="assets/raven-white-bg-02.svg"
+                        width="70px"
+                    />
+                </div>
+                <div class="rule-description-text">
+                    <h2>Scientists love their hypotheses!</h2>
+                </div>
+            </div>
+            <!-- Previous outer-container re-used -->
+            <div class="guess-summary-area">
+                <div class="summary-header-text" id="results-summary">
+                    <!-- <h3> -->
+                    <!-- You tried to falsify your hypothesis 0% of the time. -->
+                    <!-- </h3> -->
+                    <!-- <h3>You did not guess my rule.</h3> -->
+                </div>
+                <div class="comparison-summary-body">
+                    <div class="summary-body-left">
+                        <!-- image -->
+                        <!-- <img class="chart-image" src="assets/Screenshot.png" width="70px" />
+                     -->
+                        <div
+                            class="chart-container"
+                            style="
+                                position: relative;
+                                height: 80%;
+                                width: 80%;
+                                margin-top: 25px;
+                            "
+                        >
+                            <!-- <canvas id="myChart"  width="400px" height="100px"></canvas> -->
+                            <canvas id="my-graph"></canvas>
+                        </div>
+                    </div>
+                    <div class="summary-body-right">
+                        <!-- <div class="feedback-text"></div> -->
+                        <h2>
+                            Students who tried to falsify their hypothesis were
+                            more likely to guess my rule and to guess it sooner
+                        </h2>
+                        <button onclick="reloadComparisonPage()">
+                            Previous page
+                        </button>
+
+                        <button id="learn-more-btn">
+                            Learn more about bias
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Graphing dependency -->
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+        <script>
+            // Instructions modal controls
+            function openInstructionsModal() {
+                var modal = document.querySelector(".instructions-modal");
+                modal.style.display = "flex";
+            }
+            function closeInstructionsModal() {
+                var modal = document.querySelector(".instructions-modal");
+                modal.style.display = "none";
+            }
+
+            // Initial number series to display
+            let initialSeries = [2, 4, 6];
+
+            // Populate rule dropdown
+            var ruleDropdown = document.getElementById("correctRule");
+            for (var key in ruleDict) {
+                var option = document.createElement("option");
+                option.text = key;
+                ruleDropdown.add(option);
+            }
+
+            // App States
+            let entryCount = 0;
+
+            // Data structue to contain submitted guesses
+            // Contains objects with the following properties: entryNumber, sequence, rule, matchesRule, confidence
+            let userEntries = [];
+
+            // Results page functions
+            let currentRow = 0;
+            let userGuesses = [];
+            let disproveFeedback = [];
+            let numDisproveAttempts = 0;
+
+            // Update confidence percentage on slider change
+            function updateSliderLabel() {
+                var slider = document.getElementById("myRange");
+                var output = document.getElementById("confidence-label");
+                output.innerHTML = "Confidence: " + slider.value + "%";
+            }
+
+            // functions to confirm if sequences of 3 numbers follow a rule
+            function isIncreasingByOne(a, b, c) {
+                return b === a + 1 && c === b + 1;
+            }
+            function isDecreasingByOne(a, b, c) {
+                return b === a - 1 && c === b - 1;
+            }
+            function isIncreasingByTwo(a, b, c) {
+                console.log("checking if increasing by 2");
+                console.log(
+                    "numbers(post type conversation): " +
+                        a +
+                        ", " +
+                        b +
+                        ", " +
+                        c
+                );
+
+                let isTrue = b === a + 2 && c === b + 2;
+                console.log("is true: " + isTrue);
+                return isTrue;
+                // return b === a + 2 && c === b + 2;
+            }
+            function isDecreasingByTwo(a, b, c) {
+                return b === a - 2 && c === b - 2;
+            }
+            function isFibonacci(a, b, c) {
+                return a + b === c;
+            }
+            function isIncreasing(a, b, c) {
+                return b > a && c > b;
+            }
+            function isDecreasing(a, b, c) {
+                return b < a && c < b;
+            }
+            function areAllNumbersPositive(num1, num2, num3) {
+                return num1 > 0 && num2 > 0 && num3 > 0;
+            }
+            function areAllNumbersNegative(num1, num2, num3) {
+                return num1 < 0 && num2 < 0 && num3 < 0;
+            }
+            function any3Numbers(num1, num2, num3) {
+                return true;
+            }
+            function isPrime(num) {
+                for (var i = 2; i < num; i++) if (num % i === 0) return false;
+                return num > 1;
+            }
+            function areAllNumbersPrime(num1, num2, num3) {
+                return isPrime(num1) && isPrime(num2) && isPrime(num3);
+            }
+            function sqareOfPrevious(num1, num2, num3) {
+                return num1 * num1 === num2 && num2 * num2 === num3;
+            }
+
+            // dictionary matching rule names to functions
+            var ruleDict = {
+                "Increase by 1": isIncreasingByOne,
+                "Decrease by 1": isDecreasingByOne,
+                "Increase by 2": isIncreasingByTwo,
+                "Decrease by 2": isDecreasingByTwo,
+                Fibonacci: isFibonacci,
+                "Increasing order": isIncreasing,
+                "Decreasing order": isDecreasing,
+                "All positive": areAllNumbersPositive,
+                "All negative": areAllNumbersNegative,
+                "Any 3 numbers (feels too hard lol)": any3Numbers,
+                "All prime (also feels hard + dont use primes over 5 digits)":
+                    areAllNumbersPrime,
+            };
+
+            // Handle series entry
+            // Move to next field when 4 digits are entered, back to previous field if backspace is pressed and field is empty
+            document
+                .getElementById("number1")
+                .addEventListener("input", function () {
+                    if (this.value.length === this.maxLength) {
+                        document.getElementById("number2").focus();
+                    }
+                });
+
+            document
+                .getElementById("number2")
+                .addEventListener("input", function () {
+                    if (this.value.length === this.maxLength) {
+                        document.getElementById("number3").focus();
+                    }
+                });
+
+            document
+                .getElementById("number2")
+                .addEventListener("keydown", function (e) {
+                    if (e.key === "Backspace" && this.value.length === 0) {
+                        // Prevent default backspace behavior occuring after cursor is refocused on previous field
+                        e.preventDefault();
+                        document.getElementById("number1").focus();
+                    }
+                });
+
+            document
+                .getElementById("number3")
+                .addEventListener("keydown", function (e) {
+                    if (e.key === "Backspace" && this.value.length === 0) {
+                        // Prevent default backspace behavior occuring after cursor is refocused on previous field
+                        e.preventDefault();
+                        document.getElementById("number2").focus();
+                    }
+                });
+
+            // Set number1 number2 and number 3 to contain valus of initial series
+            // document.getElementById("number1").value = initialSeries[0];
+            // document.getElementById("number2").value = initialSeries[1];
+            // document.getElementById("number3").value = initialSeries[2];
+
+            // Handler to series entry form div - onClick send docus to first input
+            document
+                .getElementById("seriesEntryForm")
+                .addEventListener("click", function () {
+                    // document.getElementById("number1").focus();
+                    // If not clicked on fields for numbers 2 and 3
+                    if (
+                        document.activeElement.id !== "number2" &&
+                        document.activeElement.id !== "number3"
+                    ) {
+                        document.getElementById("number1").focus();
+                        // console.log('focus on number1');
+                    }
+                    // console.log('focus on number1');
+                });
+            // On hover, change background color of series entry form
+            document
+                .getElementById("seriesEntryForm")
+                .addEventListener("mouseover", function () {
+                    document.getElementById(
+                        "seriesEntryForm"
+                    ).style.backgroundColor = "#8344cb";
+                    document.getElementById("number1").style.backgroundColor =
+                        "#8344cb";
+                    document.getElementById("number2").style.backgroundColor =
+                        "#8344cb";
+                    document.getElementById("number3").style.backgroundColor =
+                        "#8344cb";
+                });
+            document
+                .getElementById("seriesEntryForm")
+                .addEventListener("mouseout", function () {
+                    document.getElementById(
+                        "seriesEntryForm"
+                    ).style.backgroundColor = "#6d39a8";
+                    document.getElementById("number1").style.backgroundColor =
+                        "#6d39a8";
+                    document.getElementById("number2").style.backgroundColor =
+                        "#6d39a8";
+                    document.getElementById("number3").style.backgroundColor =
+                        "#6d39a8";
+                });
+            // On hover, change background color of rule entry form
+            document
+                .getElementById("rule")
+                .addEventListener("mouseover", function () {
+                    document.getElementById("rule").style.backgroundColor =
+                        "#8344cb";
+                });
+            document
+                .getElementById("rule")
+                .addEventListener("mouseout", function () {
+                    document.getElementById("rule").style.backgroundColor =
+                        "#6d39a8";
+                });
+
+            function enforceMaxLength(fieldId) {
+                var field = document.getElementById(fieldId);
+                field.addEventListener("input", function () {
+                    if (this.value.length > 4) {
+                        this.value = this.value.slice(0, 4);
+                    }
+                    if (this.value.length === 4) {
+                        // Move to next field if there is one
+                        var nextField = document.getElementById(
+                            this.dataset.nextFieldId
+                        );
+                        if (nextField) {
+                            nextField.focus();
+                        }
+                    }
+                });
+            }
+            enforceMaxLength("number1");
+            enforceMaxLength("number2");
+            enforceMaxLength("number3");
+
+            // Get the guessRuleBtn
+            let guessRuleBtn = document.getElementById("guessRuleBtn");
+            guessRuleBtn.addEventListener("click", function () {
+                // Prevent default button behavior
+                event.preventDefault();
+                console.log("guessRuleBtn clicked");
+
+                // Hide the input pane and reveal the final guess pane
+                document.getElementById("input-pane").style.display = "none";
+                document.getElementById(
+                    "input-pane-final-guess"
+                ).style.display = "flex";
+            });
+
+            // Handle the test-more-sequences-btn
+            let testMoreSequencesBtn = document.getElementById(
+                "test-more-sequences-btn"
+            );
+            testMoreSequencesBtn.addEventListener("click", function () {
+                // Prevent default button behavior
+                event.preventDefault();
+                console.log("testMoreSequencesBtn clicked");
+                // Hide the final guess pane and reveal the input pane
+                document.getElementById(
+                    "input-pane-final-guess"
+                ).style.display = "none";
+                document.getElementById("input-pane").style.display = "flex";
+            });
+
+            // Handle guess Submission and Update Table
+            document
+                .getElementById("dataForm")
+                .addEventListener("submit", function (event) {
+                    // Rest of event handler ...
+                    event.preventDefault();
+
+                    let submitter = event.submitter;
+                    let handler = submitter.id;
+
+                    let clickedButtonId = event.submitter.id;
+                    if (clickedButtonId === "submit-rule-btn") {
+                        // submitFinalGuess();
+                        console.log("finalGuessBtn pressed");
+                        submitFinalGuess();
+                        // return;
+                    } else if (clickedButtonId === "submitGuessBtn") {
+                        // submitGuess();
+                        console.log("submitGuessBtn pressed"); // triggered on enter key
+                        submitGuess();
+                        // updateSliderLabel();
+                        // return;
+                    } else {
+                        console.log("Error: unknown button clicked");
+                    }
+
+                    return;
+                });
+
+            // Handle final submission phase
+            document
+                .getElementById("dataForm-final-guess")
+                .addEventListener("submit", function (event) {
+                    // Rest of event handler ...
+                    event.preventDefault();
+
+                    let submitter = event.submitter;
+                    let handler = submitter.id;
+
+                    let clickedButtonId = event.submitter.id;
+                    if (clickedButtonId === "submit-rule-btn") {
+                        // submitFinalGuess();
+                        console.log("finalGuessBtn pressed");
+                        submitFinalGuess();
+                        // return;
+                    } else {
+                        console.log("Error: unknown button clicked");
+                    }
+
+                    return;
+                });
+
+            function addInitialEntryToChart() {
+                // Add the first entry to the table
+                let table = document.getElementById("dataTable");
+                let newRow = table.insertRow();
+                let cell1 = newRow.insertCell(0);
+                let cell2 = newRow.insertCell(1);
+                let cell3 = newRow.insertCell(2);
+                let cell4 = newRow.insertCell(3);
+                // let cell5 = newRow.insertCell(4);
+
+                entryCount++;
+
+                // Display entry in table
+                // cell1.innerHTML = entryCount;
+                cell1.innerHTML = "--";
+                cell2.innerHTML =
+                    initialSeries[0] +
+                    ", " +
+                    initialSeries[1] +
+                    ", " +
+                    initialSeries[2];
+                cell3.innerHTML = "(Initially provided match)";
+                cell4.innerHTML = "TRUE✅";
+                // cell5.innerHTML = "";
+            }
+            addInitialEntryToChart();
+
+            function submitGuess() {
+                // Retrieve form data
+                let number1 = document.getElementById("number1").value;
+                let number2 = document.getElementById("number2").value;
+                let number3 = document.getElementById("number3").value;
+                let rule = document.getElementById("rule").value;
+                // let confidence = document.getElementById("myRange").value;
+
+                // Get correct rule from admin panel
+                let correctRule = document.getElementById("correctRule").value;
+
+                // HARDCODED RULE FOR TESTING
+                correctRule = "Increasing order";
+
+                // Check if the numbers follow the rule
+                let isCorrect = ruleDict[correctRule](
+                    parseInt(number1),
+                    parseInt(number2),
+                    parseInt(number3)
+                );
+
+                // Add entry to userEntries array
+                userEntries.push({
+                    entryNumber: entryCount - 1,
+                    sequence: number1 + ", " + number2 + ", " + number3,
+                    rule: rule,
+                    matchesRule: isCorrect,
+                    // confidence: confidence,
+                });
+
+                console.log(userEntries);
+
+                // Adding a new row to the table
+                let table = document.getElementById("dataTable");
+                let newRow = table.insertRow();
+                let cell1 = newRow.insertCell(0);
+                let cell2 = newRow.insertCell(1);
+                let cell3 = newRow.insertCell(2);
+                let cell4 = newRow.insertCell(3);
+                // let cell5 = newRow.insertCell(4);
+
+                entryCount++;
+
+                let isCorrectText = isCorrect ? "TRUE✅" : "FALSE❌";
+
+                // Display entry in table
+                cell1.innerHTML = entryCount - 1;
+                cell2.innerHTML = number1 + ", " + number2 + ", " + number3;
+                cell3.innerHTML = rule;
+                cell4.innerHTML = isCorrectText;
+                // cell5.innerHTML = confidence + "%";
+
+
+                // Clearing the form for next entry
+                document.getElementById("dataForm").reset();
+
+                // If the user has submitted 3 entries, display the final guess button
+                // if (entryCount === 3) {
+                //     document.getElementById("finalGuessBtn").style.display =
+                //         "block";
+                // }
+            }
+
+            function addSingleRowToChart(inputString, color) {
+                // Adds a single row to the table that is not broken into cells
+                var table = document.getElementById("dataTable");
+                var newRow = table.insertRow();
+                var newCell = newRow.insertCell(0);
+                // Get number of columns in table
+                var colCount = table.rows[0].cells.length;
+                newCell.colSpan = colCount;
+                newCell.innerHTML = inputString;
+                newCell.style.textAlign = "center";
+
+                // set color of new row if specified
+                if (color) {
+                    newCell.style.backgroundColor = color;
+                }
+                // cell color light green
+                // newCell.style.backgroundColor = "#e8f5e9";
+            }
+
+            // Function to submitFinalGuess
+            async function submitFinalGuess() {
+                // submitGuess();
+                loadResultsPage();
+                return; // Exit execution until use for rendering comparison
+            }
+
+            function loadResultsPage() {
+                // TODO Disable button and show spinner
+                document.getElementById("finalGuessBtn").disabled = true;
+
+                renderFeedbackTable(userEntries);
+            }
+
+            // Initial render of table and fetching of feedback
+            function renderFeedbackTable(userGuesses) {
+                console.log("user guesses: ", userGuesses);
+
+                console.log("rendering table");
+
+                // Table formatted as Series (3 numbers), Matches Rule (Yes/No), Rule Guess (text), Confidence (1-100%), Tried to falsify (Yes/No)
+
+                // Select table
+                var table = document.getElementById("resultsTable");
+
+                // Create table header
+                var header = table.createTHead();
+                // set class of header row
+                header.classList.add("results-table-header");
+
+                var row = header.insertRow(0);
+                row.classList.add("results-table-row");
+
+                var cell = row.insertCell(0);
+                cell.classList.add("results-table-cell");
+                cell.innerHTML = "<b>Sequence</b>";
+                cell = row.insertCell(1);
+                cell.innerHTML = "<b>Hypothesis</b>";
+                cell = row.insertCell(2);
+                cell.innerHTML = "<b>Matches the Rule?</b>";
+                // cell = row.insertCell(3);
+                // cell.innerHTML = "<b>Confidence</b>";
+                cell = row.insertCell(3);
+                cell.innerHTML = "<b> CONFIRM or FALSIFY</b>";
+
+                console.log("userGuesses: ", userGuesses);
+
+                // Create table body
+                var body = table.createTBody();
+                for (var i = 0; i < userGuesses.length; i++) {
+                    var row = body.insertRow(i);
+                    if (i === currentRow) row.classList.add("highlighted-row"); // highlights first row
+
+                    var cell = row.insertCell(0);
+                    cell.innerHTML = userGuesses[i].sequence;
+                    cell = row.insertCell(1);
+                    cell.innerHTML = userGuesses[i].rule;
+                    cell = row.insertCell(2);
+                    cell.innerHTML = userGuesses[i].matchesRule;
+                    // cell = row.insertCell(3);
+                    // cell.innerHTML = userGuesses[i].confidence + "%";
+                    cell = row.insertCell(3);
+                    cell.innerHTML = "<p>CONFIRM</p>";
+                    // cell.innerHTML = userGuesses[i].triedToFalsify;
+                    // cell.innerHTML = userGuesses[i].matchesRule; ''
+                }
+
+                // Show loader
+                document.querySelector(".loader").style.display = "block";
+                // disable buttons
+                document.getElementById("submitGuessBtn").disabled = true;
+                document.getElementById("finalGuessBtn").disabled = true;
+
+                // Fetch AI feedback then render custom feedback message
+                fetchDisprovalFeedback()
+                    .then(() => {
+                        // Hide loader
+                        document.querySelector(".loader").style.display =
+                            "none";
+                        document.getElementById(
+                            "submitGuessBtn"
+                        ).disabled = false;
+                        document.getElementById(
+                            "finalGuessBtn"
+                        ).disabled = false;
+                        // TODO
+                        // Render the currect rule
+                        // document.getElementById("correct-rule-text").innerHTML = correctRule;
+
+                        // Render the final guess
+                        document.getElementById("final-guess-text").innerHTML =
+                            userEntries[userEntries.length - 1].rule;
+
+                        // Hide current page and show results page
+                        document.querySelector(".app-container").style.display =
+                            "none";
+
+                        // Show results page container
+                        document.querySelector(
+                            ".results-page-container"
+                        ).style.display = "flex";
+
+                        // Add feedback to summary body right
+                        renderGuessFeedback(currentRow);
+                        console.log("disprove feedback:", disproveFeedback);
+                    })
+                    .catch((error) => {
+                        alert(
+                            "There was an error retrieving feedback from the AI model"
+                        );
+                        // TODO: cleanup execution and switch to manual feedback
+                    });
+            }
+
+            function viewNextGuess() {
+                console.log("viewing next guess");
+                var table = document.getElementById("resultsTable");
+
+                // Remove highlight from current row
+                table.rows[currentRow + 1].classList.remove("highlighted-row");
+
+                // Move to next row
+                currentRow++;
+                if (currentRow >= table.rows.length - 2) {
+                    //currentRow = 0; // Wraps around to the first row when it reaches the end
+                    // Swap out button for "View Results Comparison" button
+                    document.getElementById("next-guess-btn").style.display =
+                        "none";
+                    document.getElementById(
+                        "compare-results-btn"
+                    ).style.display = "block";
+                }
+
+                // Add highlight to new row
+                table.rows[currentRow + 1].classList.add("highlighted-row");
+
+                // console.log its data
+                console.log(userEntries[currentRow]);
+                renderGuessFeedback(currentRow);
+            }
+
+            function viewPreviousGuess() {
+                console.log("viewing previous guess");
+                var table = document.getElementById("resultsTable");
+
+                // In case of going back from final guess, swap out button for "View Results Comparison" button with "Next Guess" button
+                document.getElementById("compare-results-btn").style.display =
+                    "none";
+                document.getElementById("next-guess-btn").style.display =
+                    "block";
+
+                // Remove highlight from current row
+                table.rows[currentRow + 1].classList.remove("highlighted-row");
+
+                // Move to previous row
+                currentRow--;
+                if (currentRow < 0) {
+                    currentRow = 0; // Stays at the first row when it reaches the beginning
+                }
+
+                // Add highlight to new row
+                table.rows[currentRow + 1].classList.add("highlighted-row");
+
+                // console.log its data
+                console.log(userEntries[currentRow]);
+                renderGuessFeedback(currentRow);
+            }
+
+            function reloadInitialPage() {
+                // Reload the page to start over
+                location.reload();
+            }
+
+            function reloadComparisonPage() {
+                // Reload the previous page displaying the results comparison
+                document.querySelector(
+                    ".comparison-page-container"
+                ).style.display = "none";
+
+                // Show results page container
+                document.querySelector(
+                    ".results-page-container"
+                ).style.display = "flex";
+            }
+
+            // Control function to progress to the comparison page
+            function viewResultsComparison() {
+                // Prepare data to be shown on graph
+                let numGuesses = userEntries.length;
+                let proportionDisproveAttempts =
+                    numDisproveAttempts / numGuesses;
+
+                // TODO: Add graph to page
+                // Add sample data to draw line graph - later replace with API call
+                // Add current user data as a point to graph
+
+                // Convert proportionDisproveAttempts to percent and round to 1 decimal place
+                percentDisproveAttempts = (
+                    proportionDisproveAttempts * 100
+                ).toFixed(1);
+
+                let resultsSummary = document.getElementById("results-summary");
+                resultsSummary.innerHTML = `<h3>You tried to falsify your hypothesis ${percentDisproveAttempts}% of the time.</h3> 
+            <h3>You did / did not successfully identify my rule.</h3>`;
+
+                renderComparisonGraph(numGuesses, proportionDisproveAttempts);
+
+                // Swap out the views
+                console.log("viewing results comparison");
+                // Hide results page container
+                document.querySelector(
+                    ".results-page-container"
+                ).style.display = "none";
+
+                // Show app container
+                document.querySelector(
+                    ".comparison-page-container"
+                ).style.display = "flex";
+            }
+
+            // Render guess feedback
+            function renderGuessFeedback(guessNumber) {
+                // Display feedback for guess number
+
+                // fetchDisprovalFeedback();
+                // If response
+                // if (disproveFeedback){
+
+                // }
+
+                // Get guess
+                let guess = userEntries[guessNumber];
+                let guessRule = guess.rule;
+                let guessSequence = guess.sequence;
+                let guessMatchesRule = guess.matchesRule;
+                let guessConfidence = guess.confidence;
+
+                // Ternary operator: if guess number is 0, then use 'first', else use 'next'
+                let guessNumberText = guessNumber === 0 ? "first" : "next";
+
+                let confirmMessage = disproveFeedback[guessNumber]
+                    ? "falsify"
+                    : "confirm";
+                console.log("contents of disproveFeedback: ", disproveFeedback);
+
+                // let confirmMsg = `<p>What I mean by that is that the number series you used in your guess was a number series that fit the rule that you hypothesized to be my rule.</p>
+                //                         <p>Therefore, your guess was not an attempt to falsify your hypothesis.</p>`;
+                // let falsifyMsg = `<p>What I mean by that is that the number series you used in your guess was a number series that did not fit the rule that you hypothesized to be my rule.</p>
+                //                     <p>Therefore, your guess was an attempt to falsify your hypothesis.</p>`;
+
+                let confirmMsg = `<p>In other words, the number sequence you used was one <b>that fit your hypothesis.</b></p>`;
+                let falsifyMsg = `<p>In other words, the number sequence you used was one <b>that did not fit your hypothesis.</b></p>`;
+
+                let feedbackEnding = disproveFeedback[guessNumber]
+                    ? falsifyMsg
+                    : confirmMsg;
+
+                let feedbackText = `<p>For your ${guessNumberText} guess, your hypothesis was <b>${guessRule}</b>.</p>
+                <p>Your number series was <b>${guessSequence}</b>.</p>
+                <p>This sequence was an attempt to <b>${confirmMessage}</b> your hypothesis.</p>
+                ${feedbackEnding}`;
+
+                if (disproveFeedback.length === 0) {
+                    feedbackText = `<p>For your ${guessNumberText} guess, your hypothesis was <b>${guessRule}</b>.</p>
+                    <p>Your number series was<b>${guessSequence}</b>.</p>
+                    <p>There was an error processing your AI-powered feedback.</p>
+                    <p>Unfortunately, I don't have any further feedback for you at this time.</p>`;
+                }
+
+                // Add feedback to    width: 550px; summary body right
+                document.querySelector(".feedback-text").innerHTML =
+                    feedbackText;
+
+                // fetchDisprovalFeedback();
+            }
+
+            // function to get feedback on hypothesis disproving
+            async function fetchDisprovalFeedback() {
+                // Fetch key parameter from URL
+                const urlParams = new URLSearchParams(window.location.search);
+                const apiKey = urlParams.get("key");
+
+                // Load text from feedbackPrompt.txt
+                const instructions = await fetch("feedbackPrompt.txt")
+                    .then((response) => response.text())
+                    .then((data) => {
+                        return data;
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        // TODO: alert of error + cleanup execution
+                        return;
+                    });
+
+                console.log("instructions: ", instructions);
+                console.log("userEntries: ", userEntries);
+
+                // Convert all contents of userEntries into a readable string
+                const prompt = JSON.stringify(userEntries);
+                console.log(prompt);
+
+                const jsonBody = {
+                    // model: "gpt-4-1106-preview", // gpt-4 vs gpt-4-1106-preview
+                    model: "gpt-4",
+                    messages: [
+                        {
+                            role: "system",
+                            content: `${instructions}`,
+                        },
+                        {
+                            role: "user",
+                            content: `${prompt}`,
+                        },
+                    ],
+                    temperature: 1,
+                    max_tokens: 700,
+                    top_p: 1,
+                    frequency_penalty: 0,
+                    presence_penalty: 0,
+                };
+                // Send final guess to API
+                try {
+                    await fetch("https://api.openai.com/v1/chat/completions", {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json",
+                            Authorization: `Bearer ${apiKey}`,
+                        },
+                        body: JSON.stringify(jsonBody),
+                    })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            console.log(
+                                "content before trim: ",
+                                data.choices[0].message.content
+                            );
+                            const apiResponse =
+                                data.choices[0].message.content.trim();
+                            console.log("apiResponse: ", apiResponse);
+                            // alert(apiResponse);
+
+                            // extract disproveAttempt values from apiResponse
+                            let disproveAttempts = JSON.parse(apiResponse);
+                            console.log("disproveAttempts: ", disproveAttempts);
+                            // iterate through disproveAttempts and log
+                            for (let i = 0; i < disproveAttempts.length; i++) {
+                                console.log(
+                                    "disproveAttempt: ",
+                                    disproveAttempts[i].disproveAttempt
+                                );
+                                disproveFeedback.push(
+                                    disproveAttempts[i].disproveAttempt
+                                );
+                                if (
+                                    disproveAttempts[i].disproveAttempt === true
+                                ) {
+                                    numDisproveAttempts++;
+                                }
+                            }
+
+                            console.log(
+                                "numDisproveAttempts: ",
+                                numDisproveAttempts
+                            );
+
+                            // Render disprove attempts in tables Tried to falsify column
+                            let table = document.getElementById("resultsTable");
+                            for (let i = 0; i < disproveAttempts.length; i++) {
+                                let isFalsifyAttempt = disproveAttempts[i]
+                                    .disproveAttempt
+                                    ? "Yes"
+                                    : "No";
+                                console.log(
+                                    "isFalsifyAttempt: ",
+                                    isFalsifyAttempt
+                                );
+
+                                let cell = table.rows[i + 1].cells[3];
+                                cell.innerHTML = isFalsifyAttempt;
+                            }
+                        })
+                        .catch((error) => {
+                            console.error("Error:", error);
+                            alert(
+                                "There was an error retrieving valid feedback from the AI model"
+                            );
+                        });
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+
+            // Render the comparison graph
+            function renderComparisonGraph(
+                numGuesses,
+                proportionDisproveAttempts
+            ) {
+                // Destroy element with id 'my-graph' to prevent multiple graphs from being drawn
+                document.getElementById("my-graph").remove();
+                // Create a new canvas element to draw the graph
+                let newCanvas = document.createElement("canvas");
+                newCanvas.id = "my-graph";
+                document
+                    .querySelector(".chart-container")
+                    .appendChild(newCanvas);
+
+                // Add graph to page
+                const ctx = document.getElementById("my-graph");
+
+                new Chart(ctx, {
+                    type: "line",
+                    data: {
+                        labels: [1, 2, 3, 4, 5, 6, 7, 8],
+                        datasets: [
+                            {
+                                label: "Previous participants (Test Data)",
+                                data: [0.2, 0.4, 0.7, 0.8, 1.0],
+                                borderWidth: 3,
+                                backgroundColor: "rgba(0, 255, 0, 0.8)",
+                                radius: 6,
+                            },
+                            {
+                                type: "bubble", // 'bubble' type will create a point
+                                label: "You",
+                                data: [
+                                    {
+                                        x: numGuesses,
+                                        y: proportionDisproveAttempts,
+                                        r: 10,
+                                    },
+                                ], // x and y are coordinates, r is the radius of the point
+                                backgroundColor: "rgba(255, 0, 0, 0.6)", // color of the point
+                            },
+                        ],
+                    },
+                    options: {
+                        plugins: {
+                            legend: {
+                                labels: {
+                                    color: "rgb(0, 0, 0)",
+                                    font: {
+                                        size: 16,
+                                    },
+                                },
+                                onClick: null, // Disable legend click event
+                            },
+                            title: {
+                                display: true,
+                                text: "",
+                            },
+                            tooltip: {
+                                enabled: false,
+                            },
+                        },
+                        scales: {
+                            x: {
+                                title: {
+                                    display: true,
+                                    text: "Number of attempts to guess the rule",
+                                    font: {
+                                        size: 20,
+                                    },
+                                },
+                                beginAtZero: true,
+                                ticks: {
+                                    font: {
+                                        size: 14,
+                                    },
+                                },
+                            },
+                            y: {
+                                title: {
+                                    display: true,
+                                    text: "Proportion of incompatible instances",
+                                    font: {
+                                        size: 20,
+                                    },
+                                },
+                                beginAtZero: true,
+                                ticks: {
+                                    font: {
+                                        size: 14,
+                                    },
+                                },
+                            },
+                        },
+                        responsive: true,
+                        maintainAspectRatio: false,
+                    },
+                });
+            }
+
+            // TODO: Re-implement manual adjustment
+            function overrideAIFeedback() {
+                // When triggered, replace each entry in the 'Attempt to falsify' column with a checkbox to allow user to override AI feedback
+                // Each check box will be checked if the corresponding entry in disproveFeedback is true
+                // When the user clicks the submit button, the disproveFeedback array will be updated with the new values
+
+                // Select table
+                var table = document.getElementById("resultsTable");
+
+                // Iterate through each row in the table
+                for (let i = 0; i < table.rows.length - 1; i++) {
+                    // Create a new cell for each row
+                    let cell = table.rows[i + 1].insertCell(5);
+                    // Create a new checkbox for each cell
+                    let checkbox = document.createElement("input");
+                    checkbox.type = "checkbox";
+                    checkbox.checked = disproveFeedback[i];
+                    checkbox.id = `checkbox-${i}`;
+                    cell.appendChild(checkbox);
+                }
+
+                // Create a new button to submit the new values
+                let submitButton = document.createElement("button");
+                submitButton.innerHTML = "Submit";
+                submitButton.onclick = submitOverride;
+                document
+                    .querySelector(".summary-body-right")
+                    .appendChild(submitButton);
+
+                // Hide the override button
+                document.getElementById("override-feedback-btn").style.display =
+                    "none";
+
+                // Add a new button to cancel the override
+                // let cancelButton = document.createElement("button");
+                // cancelButton.innerHTML = "Cancel";
+                // cancelButton.onclick = cancelOverride;
+                // document.querySelector(".summary-body-right").appendChild(cancelButton);
+            }
+
+            function submitOverride() {
+                // When triggered, update the disproveFeedback array with the new values from the checkboxes
+                // Select table
+                var table = document.getElementById("resultsTable");
+
+                // Iterate through each row in the table
+                for (let i = 0; i < table.rows.length - 1; i++) {
+                    // Get the value of the checkbox
+                    let checkbox = document.getElementById(`checkbox-${i}`);
+                    disproveFeedback[i] = checkbox.checked;
+                }
+
+                // Hide the submit button
+                document
+                    .querySelector(".summary-body-right")
+                    .removeChild(
+                        document.querySelector(".summary-body-right").lastChild
+                    );
+
+                // Hide the cancel button
+                document
+                    .querySelector(".summary-body-right")
+                    .removeChild(
+                        document.querySelector(".summary-body-right").lastChild
+                    );
+
+                // Show the override button
+                document.getElementById("override-feedback-btn").style.display =
+                    "block";
+
+                // Re-render the feedback
+                renderGuessFeedback(currentRow);
+            }
+        </script>
+    </body>
+</html>
