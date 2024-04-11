@@ -12,6 +12,18 @@ export const UiDataProvider = ({ children }) => {
           uiContentss: action.payload,
         };
       }
+      case "setScreen": {
+        return {
+          ...state,
+          screen: action.payload,
+        };
+      }
+      case "setChatScreenStatus": {
+        return {
+          ...state,
+          chatScreenStatus: action.payload,
+        };
+      }
       default: {
         return state;
       }
@@ -19,6 +31,8 @@ export const UiDataProvider = ({ children }) => {
   }
   const [uiData, dispatchUiData] = useReducer(reducer, {
     uiContentss: null,
+    screen: 'editor',
+    chatScreenStatus: 'followUpAskQuestion'
   });
   return (
     <UiDataContext.Provider value={{ uiData, dispatchUiData }}>

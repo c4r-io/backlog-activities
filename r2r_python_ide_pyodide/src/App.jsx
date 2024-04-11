@@ -1,6 +1,3 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import MainView from "./components/MainView.jsx";
 import { AllContextProviders } from "./contextapi/AllContextProviders";
 import { ToastContainer } from "react-toastify";
@@ -10,8 +7,14 @@ function App() {
   return (
     <div className="overflow-x-hidden max-h-max pb-2">
       <AllContextProviders>
-        <MainView />
-        <ToastContainer />
+        <div
+          className={`flex justify-center`}
+        >
+          <div className={`annotation max-w-[750px]`}>
+            <MainView />
+            <ToastContainer />
+          </div>
+        </div>
       </AllContextProviders>
     </div>
   );
